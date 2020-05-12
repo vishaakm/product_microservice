@@ -16,10 +16,10 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<sonar.projectKey>product-ms</sonar.projectKey>
-		<sonar.organization>ekart-product</sonar.organization>
-		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		<sonar.login>1187c53df1f6cfa99f25e0be6b68b39e1214666f</sonar.login>
+		<sonar.projectKey>${sonar.projectKey}</sonar.projectKey>
+		<sonar.organization>${sonar.organization}</sonar.organization>
+		<sonar.host.url>${sonar.host.url}</sonar.host.url>
+		<sonar.login>${sonar.login}</sonar.login>
 
 		<sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
 
