@@ -30,8 +30,11 @@ public class SubscriptionService {
 
 	public Subscription updateSubscription(Subscription subscription) {
 		Subscription existingSubscription = subscriptionRepository.findById(subscription.getSubId()).orElse(null);
-		existingSubscription.setQuantity(subscription.getQuantity());
-		
-		return subscriptionRepository.save(existingSubscription);
+		if (existingSubscription != null) {
+			existingSubscription.setQuantity(subscription.getQuantity());
+
+			return subscriptionRepository.save(existingSubscription);
+		}
+		return null;
 	}
 }

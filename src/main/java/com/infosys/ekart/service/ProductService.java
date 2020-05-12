@@ -49,24 +49,30 @@ public class ProductService {
 
 	public Product updateProduct(Product product) {
 		Product existingProduct = productRepository.findById(product.getProdId()).orElse(null);
-		existingProduct.setProductname(product.getProductname());
-		existingProduct.setBrand(product.getBrand());
-		existingProduct.setPrice(product.getPrice());
-		existingProduct.setDescription(product.getDescription());
-		existingProduct.setCategory(product.getCategory());
-		existingProduct.setSubCategory(product.getSubcategory());
-		existingProduct.setImage(product.getImage());
-		existingProduct.setStock(product.getStock());
-		return productRepository.save(existingProduct);
+		if (existingProduct != null) {
+			existingProduct.setProductname(product.getProductname());
+			existingProduct.setBrand(product.getBrand());
+			existingProduct.setPrice(product.getPrice());
+			existingProduct.setDescription(product.getDescription());
+			existingProduct.setCategory(product.getCategory());
+			existingProduct.setSubCategory(product.getSubcategory());
+			existingProduct.setImage(product.getImage());
+			existingProduct.setStock(product.getStock());
+			return productRepository.save(existingProduct);
+		}
+		return null;
 	}
-	
+
 	public Product updateStock(Integer prodId, Integer stock) {
 		Product existingProduct = productRepository.findById(prodId).orElse(null);
-		existingProduct.setStock(stock);
-		return productRepository.save(existingProduct);
+		if (existingProduct != null) {
+			existingProduct.setStock(stock);
+			return productRepository.save(existingProduct);
+		}
+		return null;
 	}
-	
-	public Iterable<Product> getProductsBySellerId(Integer sellerId){
+
+	public Iterable<Product> getProductsBySellerId(Integer sellerId) {
 		return productRepository.findBySellerid(sellerId);
 	}
 
