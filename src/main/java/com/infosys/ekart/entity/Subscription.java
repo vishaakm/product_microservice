@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.infosys.ekart.dto.SubscriptionDTO;
+
 @Entity
 @Table(name = "subscribedproduct")
 public class Subscription {
@@ -53,4 +55,14 @@ public class Subscription {
 	public void setSubId(Integer subId) {
 		this.subId = subId;
 	}
+
+	public SubscriptionDTO convertToDTO(){
+        SubscriptionDTO subscription = new SubscriptionDTO();
+
+        subscription.setBuyerid(this.getBuyerid());
+        subscription.setProdid(this.getProdid());
+        subscription.setQuantity(this.getQuantity());
+
+        return subscription;
+    }
 }

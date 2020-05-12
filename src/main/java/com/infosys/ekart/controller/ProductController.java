@@ -1,5 +1,6 @@
 package com.infosys.ekart.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.infosys.ekart.dto.ProductDTO;
 import com.infosys.ekart.entity.Product;
 import com.infosys.ekart.model.ProductId;
 import com.infosys.ekart.service.ProductService;
@@ -25,25 +27,29 @@ public class ProductController {
 	private ProductService productService;
 
 	@PostMapping("/add")
-	public Product addProdcuct(@RequestBody Product product) {
-		return productService.saveProduct(product);
+	public Product addProdcuct(@RequestBody ProductDTO product) {
+		return productService.saveProduct(product.convertToEntity());
 	}
 
 	@PostMapping("/add/many")
-	public Iterable<Product> addProdcuct(@RequestBody Iterable<Product> products) {
-		return productService.saveProducts(products);
+	public Iterable<Product> addProdcuct(@RequestBody Iterable<ProductDTO> products) {
+		List<Product> productEntities = new ArrayList<>();
+		for (ProductDTO product : products) {
+			productEntities.add(product.convertToEntity());
+		}
+		return productService.saveProducts(productEntities);
 	}
 
 	@GetMapping()
 	public Iterable<Product> getProducts() {
 		return productService.getProducts();
 	}
-	
+
 	@PostMapping()
 	public Iterable<Product> getProductsByIds(@RequestBody ProductId productIds) {
 		return productService.getProductsByIds(productIds);
 	}
-	
+
 	@GetMapping("/seller/{sellerId}")
 	public Iterable<Product> getProductsOfseller(@PathVariable(name = "sellerId") Integer sellerId) {
 		return productService.getProductsBySellerId(sellerId);
@@ -74,12 +80,15 @@ public class ProductController {
 	}
 
 	@PutMapping("/update")
-	public Product updateProduct(@RequestBody Product product) {
-		return productService.updateProduct(product);
+	public Product updateProduct(@RequestBody ProductDTO product) {
+		Product productEntity = product.convertToEntity();
+		return productService.updateProduct(productEntity);
 	}
 
 	@PutMapping("/update/stock")
-	public Product updateStock(@RequestBody Product product) {
-		return productService.updateStock(product.getProdId(), product.getStock());
+	public Product updateStock(@RequestBody ProductDTO product) {
+		Product productEntity = product.convertToEntity();
+
+		return productService.updateStock(productEntity.getProdId(), product.getStock());
 	}
 }

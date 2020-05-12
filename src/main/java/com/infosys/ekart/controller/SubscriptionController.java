@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.infosys.ekart.dto.SubscriptionDTO;
 import com.infosys.ekart.entity.Subscription;
 import com.infosys.ekart.service.SubscriptionService;
 
@@ -26,13 +27,13 @@ public class SubscriptionController {
 	}
 
 	@PostMapping("/add")
-	public Subscription addSubscription(@RequestBody Subscription subscription) {
-		return subscriptionService.saveSubscription(subscription);
+	public Subscription addSubscription(@RequestBody SubscriptionDTO subscription) {
+		return subscriptionService.saveSubscription(subscription.convertToEntity());
 	}
 
 	@DeleteMapping("/remove")
-	public String removeSubscription(@RequestBody Subscription subscription) {
-		subscriptionService.deleteSubscription(subscription);
+	public String removeSubscription(@RequestBody SubscriptionDTO subscription) {
+		subscriptionService.deleteSubscription(subscription.convertToEntity());
 
 		if (subscriptionService.getSubscriptionById(subscription.getSubId()) == null) {
 			return "Success";
@@ -41,7 +42,7 @@ public class SubscriptionController {
 	}
 
 	@PutMapping("/update")
-	public Subscription updateSubscription(@RequestBody Subscription subscription) {
-		return subscriptionService.updateSubscription(subscription);
+	public Subscription updateSubscription(@RequestBody SubscriptionDTO subscription) {
+		return subscriptionService.updateSubscription(subscription.convertToEntity());
 	}
 }

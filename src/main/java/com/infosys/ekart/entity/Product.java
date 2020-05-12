@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.infosys.ekart.dto.ProductDTO;
+
 @Entity
 @Table(name = "product")
 public class Product {
@@ -126,4 +128,23 @@ public class Product {
 		this.rating = rating;
 	}
 
+	public ProductDTO convertToDTO(){
+        ProductDTO product = new ProductDTO();
+
+        product.setBrand(this.getBrand());
+        product.setCategory(this.getCategory());
+        product.setDescription(this.getDescription());
+        product.setImage(this.getImage());
+        product.setPrice(this.getPrice());
+        product.setProductname(this.getProductname());
+        product.setRating(this.getRating());
+        product.setSellerId(this.getSellerid());
+        product.setStock(this.getStock());
+        product.setSubCategory(this.getSubcategory());
+
+        return product;
+    }
+
 }
+
+
