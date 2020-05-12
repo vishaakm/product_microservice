@@ -24,7 +24,14 @@ jobs:
         SONAR_PROJECT_KEY: product_ms
         SONAR_ORGANIZATION: ekart-product 
       run: mvn -B clean package -DskipTests -D"sonar.host.url"=SONAR_URL -D"sonar.organization"=SONAR_ORGANIZATION -D"sonar.projectKey"=SONAR_PROJECT_KEY -D"sonar.login"=SONAR_LOGIN
-
+    - name: Verify with Sonar
+      env: 
+        SONAR_URL: https://sonarcloud.io  
+        SONAR_LOGIN: b6e807db59e81eaf343f0a58d41307255595928b
+        SONAR_PROJECT_KEY: product_ms
+        SONAR_ORGANIZATION: ekart-product 
+      run: mvn -B verify sonar:sonar -D"sonar.host.url"=SONAR_URL -D"sonar.organization"=SONAR_ORGANIZATION -D"sonar.projectKey"=SONAR_PROJECT_KEY -D"sonar.login"=SONAR_LOGIN
+    
     services:
       mysql:
           image: mysql:5.7
