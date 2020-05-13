@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/product_db
+    url: jdbc:mysql://product-db.c95ieyp3exq5.us-east-2.rds.amazonaws.com:3306/product_db
     username: root
-    password:
+    password: root1234
   jpa:
     hibernate.ddl-auto: update
     generate-ddl: true
