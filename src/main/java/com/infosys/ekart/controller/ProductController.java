@@ -3,6 +3,8 @@ package com.infosys.ekart.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,11 +25,14 @@ import com.infosys.ekart.service.ProductService;
 @RequestMapping("api/products")
 public class ProductController {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
+
 	@Autowired
 	private ProductService productService;
 
 	@PostMapping("/add")
 	public Product addProdcuct(@RequestBody ProductDTO product) {
+		LOGGER.info("Adding Single Product");
 		return productService.saveProduct(product.convertToEntity());
 	}
 
@@ -37,31 +42,41 @@ public class ProductController {
 		for (ProductDTO product : products) {
 			productEntities.add(product.convertToEntity());
 		}
+		LOGGER.info("Adding " +  productEntities.size() + " Product");
 		return productService.saveProducts(productEntities);
 	}
 
 	@GetMapping()
 	public Iterable<Product> getProducts() {
+		LOGGER.info("Retriveing all Products");
+
+
 		return productService.getProducts();
 	}
 
 	@PostMapping()
 	public Iterable<Product> getProductsByIds(@RequestBody ProductId productIds) {
+		LOGGER.info("Retriveing Selected Products");
+
 		return productService.getProductsByIds(productIds);
 	}
 
 	@GetMapping("/seller/{sellerId}")
 	public Iterable<Product> getProductsOfseller(@PathVariable(name = "sellerId") Integer sellerId) {
+		LOGGER.info("Retriveing Products based on sellerId " + sellerId);
 		return productService.getProductsBySellerId(sellerId);
 	}
 
 	@GetMapping("/{productId}")
 	public Product findProductById(@PathVariable(name = "productId") Integer productId) {
+		LOGGER.info("Retriveing Products based on productId " + productId);
 		return productService.getProductById(productId);
 	}
 
 	@GetMapping("/search/{keyword}")
 	public List<Product> searchProducts(@PathVariable(name = "keyword") String keyword) {
+		LOGGER.info("Retriveing Products based on keyword " + keyword);
+
 		List<Product> result = productService.getProductsByBrand(keyword);
 		result.addAll(productService.getProductsByCategory(keyword));
 		result.addAll(productService.getProductsByName(keyword));
@@ -74,7 +89,9 @@ public class ProductController {
 		productService.deleteProduct(productId);
 
 		if (productService.getProductById(productId) == null) {
+			LOGGER.info("Removing Products based on productId " + productId);
 			return "Success";
+
 		}
 		return "Failed";
 	}
@@ -82,12 +99,15 @@ public class ProductController {
 	@PutMapping("/update")
 	public Product updateProduct(@RequestBody ProductDTO product) {
 		Product productEntity = product.convertToEntity();
+		LOGGER.info("Updating Product ", product.getProdId());
+
 		return productService.updateProduct(productEntity);
 	}
 
 	@PutMapping("/update/stock")
 	public Product updateStock(@RequestBody ProductDTO product) {
 		Product productEntity = product.convertToEntity();
+		LOGGER.info("Updating Product Stock", product.getProdId());
 
 		return productService.updateStock(productEntity.getProdId(), product.getStock());
 	}

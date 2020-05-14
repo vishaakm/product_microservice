@@ -6,6 +6,7 @@ import com.infosys.ekart.entity.Product;
 
 public class ProductDTO {
 
+    private Integer prodId;
     private String productname;
     private String brand;
     private BigDecimal price;
@@ -16,6 +17,14 @@ public class ProductDTO {
     private String category;
     private String subcategory;
     private Integer rating;
+
+    public Integer getProdId() {
+        return prodId;
+    }
+
+    public void setProdId(Integer prodId) {
+        this.prodId = prodId;
+    }
 
     public String getProductname() {
         return productname;
@@ -97,7 +106,7 @@ public class ProductDTO {
         this.rating = rating;
     }
 
-    public Product convertToEntity(){
+    public Product convertToEntity() {
         Product product = new Product();
 
         product.setBrand(this.getBrand());
