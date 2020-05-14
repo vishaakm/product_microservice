@@ -21,7 +21,7 @@ public class SubscriptionController {
 	@Autowired
 	private SubscriptionService subscriptionService;
 
-	@GetMapping("*")
+	@GetMapping()
 	public Iterable<Subscription> getSubscription(@RequestParam(name = "buyerid") Integer buyerId) {
 		return subscriptionService.getSubscriptions(buyerId);
 	}
