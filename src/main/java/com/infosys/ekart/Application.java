@@ -6,6 +6,7 @@ import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -16,10 +17,17 @@ import java.util.Properties;
 public class Application {
     public static Properties PROP;
     public static void main(String[] args) {
-        System.out.println("Main Start");
         PROP = readPropertiesFromS3();
-        SpringApplication.run(Application.class, args);
-        System.out.println("Main End");
+        if(PROP == null){
+            SpringApplication.run(Application.class, args);
+        }
+        else{
+            SpringApplication app = new SpringApplication(Application.class);
+            app.setAdditionalProfiles("aws");
+            app.run(args);
+        }
+
+
     }
 
     public static Properties readPropertiesFromS3() {
@@ -28,12 +36,11 @@ public class Application {
         String bucket_name = "properties-bucket";
         Properties prop = new Properties();
 
-//        final AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion("us-east-2").build();
-        final AmazonS3 s3 = AmazonS3ClientBuilder.defaultClient();
+        final AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion("us-east-2").build();
+//        final AmazonS3 s3 = AmazonS3ClientBuilder.defaultClient();
 
         S3Object object = s3.getObject(new GetObjectRequest(bucket_name, key_name));
         try {
-            System.out.println("Fetch Data");
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(object.getObjectContent()));
             String line;
@@ -43,7 +50,6 @@ public class Application {
             }
 
             object.close();
-            System.out.println("Fetch End");
         } catch (Exception e) {
             e.printStackTrace();
         }

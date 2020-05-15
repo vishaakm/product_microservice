@@ -7,6 +7,7 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -15,6 +16,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+@Profile("aws")
 @Configuration
 @EnableJpaRepositories(
         basePackages = "com.infosys.ekart",
@@ -26,7 +28,8 @@ public class DatabaseConfiguration {
     @Primary
     @Bean(name = "awsDataSource")
     public DataSource awsDataSource() {
-        Properties prop = Application.PROP;
+        Properties prop = Application.PROP;;
+
         return DataSourceBuilder.create()
                 .type(HikariDataSource.class)
                 .url(prop.getProperty("spring.datasource.url"))
