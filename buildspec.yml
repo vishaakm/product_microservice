@@ -25,11 +25,6 @@ phases:
   build:
     commands:
       - echo build started on `date`
-      - echo get access to aws s3
-      - aws configure set aws_access_key_id AKIAWFVEYVEM5XD6VIGX
-      - aws configure set aws_secret_access_key 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
-      - aws configure set default.region us-east-2
-      - aws configure set default.output json
       - echo testing code with sonar
       - mvn clean install -D"sonar.login"=$LOGIN -D"sonar.host.url"=$HOST -D"sonar.projectKey"=$Project -D"sonar.organization"=$Organization
       - sleep 5
