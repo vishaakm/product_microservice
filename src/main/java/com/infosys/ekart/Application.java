@@ -23,16 +23,12 @@ public class Application {
 
     public static void main(String[] args) {
         PROP = readPropertiesFromS3();
-        if (PROP == null) {
-            SpringApplication.run(Application.class, args);
-        } else {
-            SpringApplication app = new SpringApplication(Application.class);
-            app.setAdditionalProfiles();
-            app.setAdditionalProfiles("aws");
-            app.run(args);
-        }
-
-
+       
+		SpringApplication app = new SpringApplication(Application.class);
+	  
+		app.setAdditionalProfiles("aws");
+		app.run(args);
+ 
     }
 
     public static Properties readPropertiesFromS3() {
