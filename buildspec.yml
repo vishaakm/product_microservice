@@ -1,6 +1,9 @@
 version: 0.2
 
 env:
+  variables:
+    MYSQL_ALLOW_EMPTY_PASSWORD : yes
+
   secrets-manager:
     LOGIN: SonarCredentials:sonartoken
     HOST: SonarCredentials:host
@@ -22,6 +25,12 @@ phases:
       - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
       - unzip ./sonar-scanner-cli-3.3.0.1492-linux.zip
       - export PATH=$PATH:/sonar-scanner-3.3.0.1492-linux/bin/
+      - echo Installing MySQL
+      - sudo apt update && sudo apt-get -y install mysql-client
+      - |
+        mysql -u root -h 127.0.0.1 <<-SQL
+          create database product_db CHARACTER SET utf8mb4;
+        SQL
   build:
     commands:
       - echo build started on `date`
