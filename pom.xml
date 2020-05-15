@@ -16,20 +16,20 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<sonar.projectKey>${sonar.projectKey}</sonar.projectKey>
-		<sonar.organization>${sonar.organization}</sonar.organization>
-		<sonar.host.url>${sonar.host.url}</sonar.host.url>
-		<sonar.login>${sonar.login}</sonar.login>
+<!--		<sonar.projectKey>${sonar.projectKey}</sonar.projectKey>-->
+<!--		<sonar.organization>${sonar.organization}</sonar.organization>-->
+<!--		<sonar.host.url>${sonar.host.url}</sonar.host.url>-->
+<!--		<sonar.login>${sonar.login}</sonar.login>-->
 
 <!--		 <sonar.projectKey>product_ms</sonar.projectKey>-->
 <!--		 <sonar.organization>ekart-product</sonar.organization>-->
 <!--		 <sonar.host.url>https://sonarcloud.io</sonar.host.url>-->
 <!--		 <sonar.login>0a2d39e62ea06558def02d97e1bef2309285d8aa</sonar.login>-->
 
-		<sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
+<!--		<sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>-->
 
-		<sonar.coverage.jacoco.xmlReportPaths>../report/site/jacoco/jacoco.xml
-		</sonar.coverage.jacoco.xmlReportPaths>
+<!--		<sonar.coverage.jacoco.xmlReportPaths>../report/site/jacoco/jacoco.xml-->
+<!--		</sonar.coverage.jacoco.xmlReportPaths>-->
 
 	</properties>
 
@@ -87,6 +87,11 @@
 			<version>1.11.549</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -95,59 +100,59 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<plugin>
-				<groupId>org.sonarsource.scanner.maven</groupId>
-				<artifactId>sonar-maven-plugin</artifactId>
-				<version>3.3.0.603</version>
-				<executions>
-					<execution>
-						<phase>verify</phase>
-						<goals>
-							<goal>sonar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.2</version>
-				<executions>
-					<execution>
-						<id>coverage-initialize</id>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>coverage-report</id>
-						<phase>post-integration-test</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>coverage-check</id>
-						<goals>
-							<goal>check</goal>
-						</goals>
-						<configuration>
-							<rules>
-								<rule>
-									<element>CLASS</element>
-									<limits>
-										<limit>
-											<counter>LINE</counter>
-											<value>COVEREDRATIO</value>
-											<minimum>0%</minimum>
-										</limit>
-									</limits>
-								</rule>
-							</rules>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+<!--			<plugin>-->
+<!--				<groupId>org.sonarsource.scanner.maven</groupId>-->
+<!--				<artifactId>sonar-maven-plugin</artifactId>-->
+<!--				<version>3.3.0.603</version>-->
+<!--				<executions>-->
+<!--					<execution>-->
+<!--						<phase>verify</phase>-->
+<!--						<goals>-->
+<!--							<goal>sonar</goal>-->
+<!--						</goals>-->
+<!--					</execution>-->
+<!--				</executions>-->
+<!--			</plugin>-->
+<!--			<plugin>-->
+<!--				<groupId>org.jacoco</groupId>-->
+<!--				<artifactId>jacoco-maven-plugin</artifactId>-->
+<!--				<version>0.8.2</version>-->
+<!--				<executions>-->
+<!--					<execution>-->
+<!--						<id>coverage-initialize</id>-->
+<!--						<goals>-->
+<!--							<goal>prepare-agent</goal>-->
+<!--						</goals>-->
+<!--					</execution>-->
+<!--					<execution>-->
+<!--						<id>coverage-report</id>-->
+<!--						<phase>post-integration-test</phase>-->
+<!--						<goals>-->
+<!--							<goal>report</goal>-->
+<!--						</goals>-->
+<!--					</execution>-->
+<!--					<execution>-->
+<!--						<id>coverage-check</id>-->
+<!--						<goals>-->
+<!--							<goal>check</goal>-->
+<!--						</goals>-->
+<!--						<configuration>-->
+<!--							<rules>-->
+<!--								<rule>-->
+<!--									<element>CLASS</element>-->
+<!--									<limits>-->
+<!--										<limit>-->
+<!--											<counter>LINE</counter>-->
+<!--											<value>COVEREDRATIO</value>-->
+<!--											<minimum>0%</minimum>-->
+<!--										</limit>-->
+<!--									</limits>-->
+<!--								</rule>-->
+<!--							</rules>-->
+<!--						</configuration>-->
+<!--					</execution>-->
+<!--				</executions>-->
+<!--			</plugin>-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>

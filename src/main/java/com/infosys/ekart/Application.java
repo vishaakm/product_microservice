@@ -5,23 +5,27 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.annotation.ComponentScan;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Properties;
 
-
-@SpringBootApplication
+@SpringBootApplication()
+@ComponentScan({"com.infosys.ekart"})
 public class Application {
     public static Properties PROP;
+
     public static void main(String[] args) {
         PROP = readPropertiesFromS3();
-        if(PROP == null){
+        if (PROP == null) {
             SpringApplication.run(Application.class, args);
-        }
-        else{
+        } else {
             SpringApplication app = new SpringApplication(Application.class);
             app.setAdditionalProfiles("aws");
             app.run(args);
