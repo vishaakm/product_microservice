@@ -26,7 +26,6 @@ public class DatabaseConfiguration {
 
     private final String PACKAGE_SCAN = "com.infosys.ekart";
 
-    @Primary
     @Bean
     public DataSource getDataSource() {
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
@@ -37,6 +36,7 @@ public class DatabaseConfiguration {
         return dataSourceBuilder.build();
     }
 
+    @Primary
     @Bean(name = "awsDataSource")
     public DataSource awsDataSource() {
         Properties prop = Application.PROP;
@@ -47,17 +47,6 @@ public class DatabaseConfiguration {
                 .username(prop.getProperty("spring.datasource.username"))
                 .password(prop.getProperty("spring.datasource.password"))
                 .build();
-    }
-
-
-    @Primary
-    @Bean(name = "dbSessionFactory")
-    public LocalSessionFactoryBean dbSessionFactory() {
-        LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
-        sessionFactoryBean.setDataSource(awsDataSource());
-        sessionFactoryBean.setPackagesToScan(PACKAGE_SCAN);
-        sessionFactoryBean.setHibernateProperties(hibernateProperties());
-        return sessionFactoryBean;
     }
 
     @Bean(name = "customEntityManager")

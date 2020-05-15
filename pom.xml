@@ -26,10 +26,10 @@
 <!--		 <sonar.host.url>https://sonarcloud.io</sonar.host.url>-->
 <!--		 <sonar.login>0a2d39e62ea06558def02d97e1bef2309285d8aa</sonar.login>-->
 
-<!--		<sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>-->
+		<sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
 
-<!--		<sonar.coverage.jacoco.xmlReportPaths>../report/site/jacoco/jacoco.xml-->
-<!--		</sonar.coverage.jacoco.xmlReportPaths>-->
+		<sonar.coverage.jacoco.xmlReportPaths>../report/site/jacoco/jacoco.xml
+		</sonar.coverage.jacoco.xmlReportPaths>
 
 	</properties>
 

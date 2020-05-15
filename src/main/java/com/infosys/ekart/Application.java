@@ -27,6 +27,7 @@ public class Application {
             SpringApplication.run(Application.class, args);
         } else {
             SpringApplication app = new SpringApplication(Application.class);
+            app.setAdditionalProfiles();
             app.setAdditionalProfiles("aws");
             app.run(args);
         }
