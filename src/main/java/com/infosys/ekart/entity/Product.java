@@ -131,6 +131,7 @@ public class Product {
 	public ProductDTO convertToDTO(){
         ProductDTO product = new ProductDTO();
 
+        product.setProdId(this.getProdId());
         product.setBrand(this.getBrand());
         product.setCategory(this.getCategory());
         product.setDescription(this.getDescription());

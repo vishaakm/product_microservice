@@ -109,6 +109,7 @@ public class ProductDTO {
     public Product convertToEntity() {
         Product product = new Product();
 
+        product.setProdId(this.getProdId());
         product.setBrand(this.getBrand());
         product.setCategory(this.getCategory());
         product.setDescription(this.getDescription());
