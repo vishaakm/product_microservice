@@ -43,7 +43,7 @@ public class SubscriptionDTO {
 
     public Subscription convertToEntity(){
         Subscription subscription = new Subscription();
-
+        subscription.setSubId(this.getSubId());
         subscription.setBuyerid(this.getBuyerid());
         subscription.setProdid(this.getProdid());
         subscription.setQuantity(this.getQuantity());
