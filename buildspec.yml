@@ -1,9 +1,6 @@
 version: 0.2
 
 env:
-  variables:
-    MYSQL_ALLOW_EMPTY_PASSWORD : yes
-
   secrets-manager:
     LOGIN: SonarCredentials:sonartoken
     HOST: SonarCredentials:host
